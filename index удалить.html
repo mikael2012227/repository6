@@ -14,7 +14,7 @@
             width: auto;
             height: 100%;
             max-width: 100%;
-            object-fit: contain;
+            object-fit: contain; /* сохраняет пропорции, не обрезает и не растягивает */
         }
 
         @media (min-aspect-ratio: 9/16) {
@@ -67,6 +67,7 @@
             justify-content: flex-end;
         }
 
+        /* Контейнер для видео с сохранением пропорций 9:16 */
         .video-wrapper {
             position: absolute;
             top: 0;
@@ -85,14 +86,74 @@
             height: 100%;
             max-width: 100%;
             object-fit: contain;
+            /* Сохраняем пропорции видео, не растягиваем */
             background: #000;
         }
 
+        /* Если видео шире чем нужно, ограничиваем по ширине */
         @media (min-aspect-ratio: 9/16) {
             .video-player {
                 width: 100%;
                 height: auto;
             }
+        }
+
+        .video-placeholder-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #1e1e2f, #12121c);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .video-tag-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 107, 157, 0.2);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ff6b9d;
+        }
+
+        .video-tag-icon svg {
+            width: 48px;
+            height: 48px;
+            stroke: #ff6b9d;
+            stroke-width: 1.5;
+        }
+
+        .video-placeholder-text h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ff6b9d;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .video-placeholder-text p {
+            font-size: 14px;
+            color: #8e8ea8;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .add-video-hint {
+            background: rgba(255, 107, 157, 0.15);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            color: #ff9fbd;
+            backdrop-filter: blur(4px);
         }
 
         .video-controls {
@@ -192,7 +253,7 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #ff6b9d, #c084fc);
+            background: linear-gradient(135deg, #00ff1e, #0267ff);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -208,8 +269,8 @@
 
         .follow-btn {
             background: transparent;
-            border: 1px solid #ff6b9d;
-            color: #ff6b9d;
+            border: 1px solid #0dff00;
+            color: #0dff00;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 12px;
@@ -354,7 +415,7 @@
         .logo {
             font-size: 24px;
             font-weight: 800;
-            background: linear-gradient(135deg, #ff6b9d, #c084fc);
+            background: linear-gradient(135deg, #00ff1e, #0267ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -556,118 +617,6 @@
             from { opacity: 1; visibility: visible; }
             to { opacity: 0; visibility: hidden; }
         }
-
-        /* Стили для модалки комментариев */
-        .comments-modal {
-            max-width: 380px;
-            width: 90%;
-            max-height: 80vh;
-            background: #12121c;
-            border-radius: 28px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid rgba(255, 107, 157, 0.5);
-        }
-        .comments-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .comments-header h3 {
-            color: #ff6b9d;
-            font-size: 18px;
-        }
-        .close-comments {
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-        }
-        .comments-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            max-height: 50vh;
-        }
-        .comment-item-ui {
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            padding: 10px 12px;
-        }
-        .comment-author {
-            font-weight: 600;
-            color: #ff9fbd;
-            font-size: 13px;
-            margin-bottom: 4px;
-        }
-
-         .comment-authorE {
-            font-weight: 600;
-            color: #4400ff;
-            font-size: 13px;
-            margin-bottom: 4px;
-        }
-
-        .comment-text {
-            font-size: 14px;
-            color: #e0e0e0;
-            word-break: break-word;
-        }
-        .comment-date {
-            font-size: 10px;
-            color: #8e8ea8;
-            margin-top: 6px;
-        }
-        #e{
-            border-color: #c084fc;
-        }
-        .no-comments {
-            text-align: center;
-            color: #8e8ea8;
-            padding: 20px;
-            font-size: 14px;
-        }
-        .add-comment-area {
-            padding: 16px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            background: #0a0a14;
-            display: flex;
-            gap: 10px;
-        }
-        .comment-input {
-            flex: 1;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            border-radius: 24px;
-            padding: 10px 16px;
-            color: white;
-            font-size: 14px;
-            outline: none;
-        }
-        .comment-input::placeholder {
-            color: #aaa;
-        }
-        .send-comment-btn {
-            background: #ff6b9d;
-            border: none;
-            border-radius: 30px;
-            padding: 0 18px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* Скрытые данные комментариев в HTML */
-        .comments-data {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -685,10 +634,24 @@
         <div class="video-container" data-id="1">
             <div class="video-wrapper">
                 <video width="640" height="360" class="video-player" id="video1" preload="metadata" playsinline controls loop>
+                    <!-- ДОБАВЬТЕ СВОЕ ВИДЕО: добавьте атрибут src="путь_к_вашему_видео.mp4" -->
                     <source src="видео/video_2026-03-28_10-32-11.mp4" type="video/mp4">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
+            <!-- <div class="video-placeholder-overlay">
+                <div class="video-tag-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23 7L16 12L23 17V7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <rect x="2" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </div>
+                <div class="video-placeholder-text">
+                    <h3>🎬 Тег &lt;video&gt; готов</h3>
+                    <p>Здесь будет ваше видео. Добавьте атрибут src в тег video</p>
+                </div>
+                <div class="add-video-hint">📹 Добавьте ссылку на видео в атрибут src</div>
+            </div> -->
             <div class="video-controls">
                 <button class="play-pause-btn">▶️</button>
                 <div class="progress-bar"><div class="progress-fill"></div></div>
@@ -720,48 +683,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Комментарии для видео 1 (прямо в HTML) -->
-            <div class="comments-data" data-video-id="1">
-                <div class="comment" data-author="Алексей Дизайнер" data-date="28 мар 2026, 15:23">
-                    🔥 Классный контент! Жду новых видео
-                </div>
-                <div class="comment" data-author="Мария Иванова" data-date="28 мар 2026, 14:12">
-                    👋 Добро пожаловать! Отличный старт
-                </div>
-                <div class="comment" data-author="Дмитрий Петров" data-date="28 мар 2026, 12:45">
-                    🎉 Ура, новый видеохостинг! Желаю успехов
-                </div>
-                <div class="comment" data-author="Елена Морозова" data-date="27 мар 2026, 20:30">
-                    💯 Лучшее, что я видел сегодня
-                </div>
-                <div class="comment" data-author="Артём Волков" data-date="27 мар 2026, 18:15">
-                    🚀 Платформа выглядит очень перспективно
-                </div>
-                <div class="comment" data-author="Ксения Соколова" data-date="27 мар 2026, 14:50">
-                    😍 Это просто бомба!
-                </div>
-                <div class="comment" data-author="Игорь Лебедев" data-date="27 мар 2026, 10:22">
-                    💪 Так держать! С нетерпением жду развития
-                </div>
-                <div class="comment" data-author="Наталья Гришина" data-date="26 мар 2026, 21:05">
-                    🌟 Уже подписался! Жду новинок
-                </div>
-                <div class="comment" data-author="Владимир Смирнов" data-date="26 мар 2026, 17:33">
-                    👍 Отлично! Лайк однозначно
-                </div>
-                <div class="comment" data-author="Ольга Новикова" data-date="26 мар 2026, 12:18">
-                    ✨ Очень атмосферно получилось
-                </div>
-                <div class="comment" data-author="Максим Кузнецов" data-date="25 мар 2026, 19:42">
-                    🎯 В точку! Продолжай в том же духе
-                </div>
-                <div class="comment" data-author="Анна Соловьёва" data-date="25 мар 2026, 14:27">
-                    🔥 Огонь! Жду больше видео
-                </div>
-                <div class="comment" data-author="Павел Воробьёв" data-date="24 мар 2026, 22:15">
-                    💎 Лучший контент за неделю
-                </div>
-            </div>
         </div>
 
         <!-- ВИДЕО 2 -->
@@ -769,8 +690,22 @@
             <div class="video-wrapper">
                 <video class="video-player" id="video2" preload="metadata" playsinline controls loop>
                     <source src="видео/video_2026-03-28_10-32-19.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
                 </video>
             </div>
+            <!-- <div class="video-placeholder-overlay">
+                <div class="video-tag-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23 7L16 12L23 17V7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <rect x="2" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </div>
+                <div class="video-placeholder-text">
+                    <h3>🎬 Тег &lt;video&gt; готов</h3>
+                    <p>Здесь будет ваше видео. Добавьте атрибут src в тег video</p>
+                </div>
+                <div class="add-video-hint">📹 Добавьте ссылку на видео в атрибут src</div>
+            </div> -->
             <div class="video-controls">
                 <button class="play-pause-btn">▶️</button>
                 <div class="progress-bar"><div class="progress-fill"></div></div>
@@ -778,30 +713,28 @@
             </div>
             <div class="video-overlay">
                 <div class="video-info">
-                    <div class="author"><div class="avatar">DL</div><span class="author-name">design_lab</span><button class="follow-btn">Подписаться</button></div>
+                    <div class="author">
+                        <div class="avatar">DL</div>
+                        <span class="author-name">design_lab</span>
+                        <button class="follow-btn">Подписаться</button>
+                    </div>
                     <div class="description">🎨 Новая цветовая гамма вдохновляет! Как вам стиль TikTak? #дизайн</div>
                     <div class="music-tag">🎵 Оригинальный звук</div>
                     <div class="release-date">2026-03-14</div>
                 </div>
                 <div class="action-buttons">
-                    <div class="action-item like-item"><div class="action-icon">❤️</div><div class="action-count">892</div></div>
-                    <div class="action-item comment-item"><div class="action-icon">💬</div><div class="action-count">34</div></div>
-                    <div class="action-item share-item"><div class="action-icon">🔁</div><div class="action-count">28</div></div>
-                </div>
-            </div>
-            <!-- Комментарии для видео 2 -->
-            <div class="comments-data" data-video-id="2">
-                <div class="comment" data-author="fufelcshmerc55" data-date="09 апр 2026, 11:23">
-                    Тикток лучше а это херня
-                </div>
-                <div class="comment" data-author="tiktak_creator4332 в ответ fufelcshmerc55" data-date="09 апр 2026, 16:45">
-                    это пока херня приложение только вышло а потом думаю будет лучше
-                </div>
-                <div class="comment" data-author="tiktak_creator11212" data-date="09 апр 2026, 12:03">
-                    КАК ОНА СМАЧНО ЕБНУЛАСЬ ХААХХА
-                </div>
-                <div class="comment" data-author="tiktak_creator3360" data-date="09 апр 2026, 21:20">
-                    А видео где брали
+                    <div class="action-item like-item">
+                        <div class="action-icon">❤️</div>
+                        <div class="action-count">892</div>
+                    </div>
+                    <div class="action-item comment-item">
+                        <div class="action-icon">💬</div>
+                        <div class="action-count">--</div>
+                    </div>
+                    <div class="action-item share-item">
+                        <div class="action-icon">🔁</div>
+                        <div class="action-count">28</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -809,10 +742,24 @@
         <!-- ВИДЕО 3 -->
         <div class="video-container" data-id="3">
             <div class="video-wrapper">
-                <video class="video-player" id="video3" preload="metadata" playsinline controls loop>
-                    <source src="видео/_.djveta3_2026-03-28-10-15-25_1774649725884.mp4" type="video/mp4">
+                <video class="video-player" id="video3" preload="metadata" playinsline controls loop>
+                    <source src="видео/_.djveta3_2026-03-28-10-15-25_1774649725884.mp4" type="video/mp4" controls loop>
+                    Ваш браузер не поддерживает видео.
                 </video>
             </div>
+            <!-- <div class="video-placeholder-overlay">
+                <div class="video-tag-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23 7L16 12L23 17V7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <rect x="2" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </div>
+                <div class="video-placeholder-text">
+                    <h3>🎬 Тег &lt;video&gt; готов</h3>
+                    <p>Здесь будет ваше видео. Добавьте атрибут src в тег video</p>
+                </div>
+                <div class="add-video-hint">📹 Добавьте ссылку на видео в атрибут src</div>
+            </div> -->
             <div class="video-controls">
                 <button class="play-pause-btn">▶️</button>
                 <div class="progress-bar"><div class="progress-fill"></div></div>
@@ -820,33 +767,28 @@
             </div>
             <div class="video-overlay">
                 <div class="video-info">
-                    <div class="author"><div class="avatar">MD</div><span class="author-name">music_daily</span><button class="follow-btn">Подписаться</button></div>
+                    <div class="author">
+                        <div class="avatar">MD</div>
+                        <span class="author-name">music_daily</span>
+                        <button class="follow-btn">Подписаться</button>
+                    </div>
                     <div class="description">🎵 Музыкальный рекомендательный движок уже работает!\nЖдите новинки #музыка</div>
                     <div class="music-tag">🎵 Trend Beats 2025</div>
                     <div class="release-date">16 марта 2026 г.</div>
                 </div>
                 <div class="action-buttons">
-                    <div class="action-item like-item"><div class="action-icon">❤️</div><div class="action-count">2617</div></div>
-                    <div class="action-item comment-item"><div class="action-icon">💬</div><div class="action-count">201</div></div>
-                    <div class="action-item share-item"><div class="action-icon">🔁</div><div class="action-count">134</div></div>
-                </div>
-            </div>
-            <!-- Комментарии для видео 3 (показаны первые 15, но всего их 201 в счётчике) -->
-            <div class="comments-data" data-video-id="3">
-                <div class="comment" data-author="tiktak_creator77181" data-date="9 апр 2026, 15:35">
-                    вот молодежь сейчас какая зомбированная какой то хостинг новый выустили видео здесь вообще ума ноль, одна безмозговщина, мат перемат, лучше бы всето того чтобы бездельничать, взяли бы хоть раз бы почитали какую нибудь книгу из школьной программы, или просто для себя. Ну поймите развивает же ум, я просто возмущена современной молодежью
-                </div>
-                <div class="comment" id="e" data-author="TikTak ✔ в ответ @tiktak_creator77181" data-date="9 апр 2026, 20:50❤️12К">
-                    иди в огород пахать, пенсия
-                </div>
-                <div class="comment" id="e" data-author="tiktak_creator553" data-date="9 апр 2026, 14:32❤️5.4К">
-                    У меня видео не работает 
-                </div>
-                <div class="comment" id="e" data-author="tiktak_creator3" data-date="9 апр 2026, 20:02❤️12">
-                    почему файл поврежден
-                </div>
-                <div class="comment" id="e" data-author="tiktak_creator16" data-date="9 апр 2026, 17:21">
-                    Че за тиктак за немощное приложение видео нихуя не грузит
+                    <div class="action-item like-item">
+                        <div class="action-icon">❤️</div>
+                        <div class="action-count">2617</div>
+                    </div>
+                    <div class="action-item comment-item">
+                        <div class="action-icon">💬</div>
+                        <div class="action-count">201</div>
+                    </div>
+                    <div class="action-item share-item">
+                        <div class="action-icon">🔁</div>
+                        <div class="action-count">134</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -955,8 +897,6 @@
                         <div class="action-icon">🔁</div>
                         <div class="action-count">0</div>
                     </div>
-
-                    
                 </div>
             </div>
         </div>
@@ -3123,12 +3063,42 @@
                 </div>
             </div>
         </div>
+
+        
+    
+
+
+
     </div>
+
+    <!-- <div class="bottom-nav">
+        <div class="nav-item active" data-nav="home">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-label">Главная</div>
+        </div>
+        <div class="nav-item" data-nav="trends">
+            <div class="nav-icon">🔥</div>
+            <div class="nav-label">Рекомендации</div>
+        </div>
+        <div class="nav-item" data-nav="upload">
+            <div class="nav-icon">➕</div>
+            <div class="nav-label">Загрузить</div>
+        </div>
+        <div class="nav-item" data-nav="inbox">
+            <div class="nav-icon">💬</div>
+            <div class="nav-label">Сообщения</div>
+        </div>
+        <div class="nav-item" data-nav="profile">
+            <div class="nav-icon" onclick="replace()">👤</div>
+            <div class="nav-label">Профиль</div>
+        </div>
+    </div> -->
 
     <div class="modal" id="uploadModal">
         <div class="modal-content">
             <h3>📹 Загрузка видео</h3>
             <p>вы пока не можете загружать видео в эту платформу</p>
+            <p style="font-size: 12px; margin-top: 10px;"></p>
             <button class="close-modal" id="closeModalBtn">Понятно</button>
         </div>
     </div>
@@ -3137,176 +3107,86 @@
         <div class="notice-card">
             <div class="notice-icon">📱✨</div>
             <div class="notice-title">TikTak</div>
-            <div class="notice-text">Приложение <span class="notice-highlight">TikTak</span> находится <span class="notice-highlight">в разработке</span></div>
-            <div class="notice-text">Вы используете (тестируете) Альфа версию патформы<br><span class="notice-highlight">в ленте рекомендаций показано мало роликов, со временем мы будем её расширять</span></div>
-            <div class="notice-subtext">Приятного просмотра</div>
+            <div class="notice-text">
+                Приложение <span class="notice-highlight">TikTak</span> находится 
+                <span class="notice-highlight">в разработке</span>
+            </div>
+            <div class="notice-text">
+                Вы используете (тестируете) Альфа версию патформы<br>
+                <span class="notice-highlight">в ленте рекомендаций показано мало роликов, со временем мы будем её расширять</span>
+            </div>
+            <div class="notice-subtext">
+                Приятного просмотра
+            </div>
             <button class="notice-button" id="closeNoticeBtn">Продолжить</button>
         </div>
     </div>
 </div>
 
 <script>
-    // ========== ЗАГРУЗКА КОММЕНТАРИЕВ ИЗ HTML ==========
-    let commentsDB = {};
-
-    // Функция для загрузки комментариев из скрытых блоков HTML
-    function loadCommentsFromHTML() {
-        const commentsDataBlocks = document.querySelectorAll('.comments-data');
-        commentsDataBlocks.forEach(block => {
-            const videoId = block.getAttribute('data-video-id');
-            if (!videoId) return;
-            
-            const comments = [];
-            const commentElements = block.querySelectorAll('.comment');
-            commentElements.forEach(commentEl => {
-                const author = commentEl.getAttribute('data-author') || 'Аноним';
-                const date = commentEl.getAttribute('data-date') || new Date().toLocaleString('ru-RU');
-                const text = commentEl.textContent.trim();
-                comments.push({
-                    author: author,
-                    text: text,
-                    date: date,
-                });
-            });
-            commentsDB[videoId] = comments;
-        });
-        
-        // Синхронизируем счетчики с реальным количеством комментариев
-        const allContainers = document.querySelectorAll('.video-container');
-        allContainers.forEach(container => {
-            const vidId = container.getAttribute('data-id');
-            if (vidId && commentsDB[vidId]) {
-                const commentSpan = container.querySelector('.comment-item .action-count');
-                if (commentSpan) {
-                    commentSpan.innerText = commentsDB[vidId].length;
-                }
-            }
-        });
-    }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if(m === '&') return '&amp;';
-            if(m === '<') return '&lt;';
-            if(m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    // Функция отображения модалки комментариев
-    function openCommentsModal(videoContainer) {
-        const videoId = videoContainer.getAttribute('data-id');
-        if (!videoId) return;
-        
-        const authorName = videoContainer.querySelector('.author-name')?.innerText || 'Пользователь';
-        const commentsList = commentsDB[videoId] || [];
-        
-        const modalDiv = document.createElement('div');
-        modalDiv.className = 'modal active';
-        modalDiv.style.zIndex = '200';
-        
-        modalDiv.innerHTML = `
-            <div class="comments-modal">
-                <div class="comments-header">
-                    <h3>💬 Комментарии · @${escapeHtml(authorName)}</h3>
-                    <button class="close-comments">✕</button>
-                </div>
-                <div class="comments-list" id="comments-list-${videoId}">
-                    ${commentsList.length === 0 ? '<div class="no-comments">Пока нет комментариев. Напишите первый!</div>' : 
-                        commentsList.map(c => `
-                            <div class="comment-item-ui">
-                                <div class="comment-author">${escapeHtml(c.author)}</div>
-                                <div class="comment-text">${escapeHtml(c.text)}</div>
-                                <div class="comment-date">${escapeHtml(c.date)}</div>
-                            </div>
-                        `).join('')
-                    }
-                </div>
-                <div class="add-comment-area">
-                    <input type="text" class="comment-input" placeholder="Напишите комментарий..." id="comment-input-${videoId}">
-                    <button class="send-comment-btn" data-video-id="${videoId}">Отправить</button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modalDiv);
-        
-        const closeBtn = modalDiv.querySelector('.close-comments');
-        closeBtn.onclick = () => modalDiv.remove();
-        modalDiv.onclick = (e) => { if(e.target === modalDiv) modalDiv.remove(); };
-        
-        const sendBtn = modalDiv.querySelector('.send-comment-btn');
-        const inputField = modalDiv.querySelector(`#comment-input-${videoId}`);
-        
-        sendBtn.onclick = () => {
-            const commentText = inputField.value.trim();
-            if(commentText === "") {
-                alert("Напишите комментарий");
-                return;
-            }
-            
-            if(!commentsDB[videoId]) commentsDB[videoId] = [];
-            const newComment = {
-                author: "Вы (TikTak_user)",
-                text: commentText,
-                date: new Date().toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
-            };
-            commentsDB[videoId].unshift(newComment);
-            
-            const commentCountSpan = videoContainer.querySelector('.comment-item .action-count');
-            if(commentCountSpan) {
-                let currentCount = parseInt(commentCountSpan.innerText) || 0;
-                currentCount++;
-                commentCountSpan.innerText = currentCount;
-            }
-            
-            const commentsContainer = modalDiv.querySelector(`#comments-list-${videoId}`);
-            if(commentsContainer) {
-                const allComments = commentsDB[videoId];
-                commentsContainer.innerHTML = allComments.map(c => `
-                    <div class="comment-item-ui">
-                        <div class="comment-author">${escapeHtml(c.author)}</div>
-                        <div class="comment-text">${escapeHtml(c.text)}</div>
-                        <div class="comment-date">${escapeHtml(c.date)}</div>
-                    </div>
-                `).join('');
-                inputField.value = '';
-            }
-        };
-    }
-    
-    function upgradeCommentInteractions() {
-        document.querySelectorAll('.comment-item').forEach(btn => {
-            const newBtn = btn.cloneNode(true);
-            btn.parentNode.replaceChild(newBtn, btn);
-            const container = newBtn.closest('.video-container');
-            newBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if(container) openCommentsModal(container);
-            });
-        });
-    }
-    
-    // ========== Остальные функции ==========
+    // Инициализация всех видео и контролов
     function initVideoControls() {
         const videoContainers = document.querySelectorAll('.video-container');
+        
         videoContainers.forEach((container) => {
             const video = container.querySelector('.video-player');
             const playBtn = container.querySelector('.play-pause-btn');
             const progressBar = container.querySelector('.progress-bar');
             const progressFill = container.querySelector('.progress-fill');
             const timeDisplay = container.querySelector('.time-display');
+            const placeholderOverlay = container.querySelector('.video-placeholder-overlay');
+            
             let isPlaying = false;
-            function updatePlayPauseButton() { if (playBtn) playBtn.innerHTML = isPlaying ? '⏸️' : '▶️'; }
-            function togglePlay() {
-                if (!video || !video.src || video.src === '') { alert('📹 Видео еще не добавлено!'); return; }
-                if (isPlaying) video.pause(); else video.play().catch(e => console.log('Ошибка'));
+            
+            function updatePlayPauseButton() {
+                if (playBtn) playBtn.innerHTML = isPlaying ? '⏸️' : '▶️';
             }
-            if (playBtn) playBtn.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
+            
+            function checkVideoSource() {
+                const hasSource = video && video.src && video.src !== '' && !video.src.endsWith(window.location.href);
+                if (!hasSource && placeholderOverlay) {
+                    placeholderOverlay.style.display = 'flex';
+                } else if (hasSource && placeholderOverlay) {
+                    placeholderOverlay.style.display = 'none';
+                }
+                return hasSource;
+            }
+            
+            function togglePlay() {
+                if (!checkVideoSource()) {
+                    alert('📹 Видео еще не добавлено!\nДобавьте атрибут src в тег video, чтобы загрузить видео.');
+                    return;
+                }
+                
+                if (isPlaying) {
+                    video.pause();
+                } else {
+                    video.play().catch(e => {
+                        console.log('Ошибка воспроизведения:', e);
+                        alert('Не удалось воспроизвести видео. Проверьте ссылку на видео.');
+                    });
+                }
+            }
+            
+            if (playBtn) {
+                playBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    togglePlay();
+                });
+            }
+            
             if (video) {
-                video.addEventListener('play', () => { isPlaying = true; updatePlayPauseButton(); });
-                video.addEventListener('pause', () => { isPlaying = false; updatePlayPauseButton(); });
+                video.addEventListener('play', () => {
+                    isPlaying = true;
+                    updatePlayPauseButton();
+                    if (placeholderOverlay) placeholderOverlay.style.display = 'none';
+                });
+                
+                video.addEventListener('pause', () => {
+                    isPlaying = false;
+                    updatePlayPauseButton();
+                });
+                
                 video.addEventListener('timeupdate', () => {
                     if (video.duration && !isNaN(video.duration)) {
                         const percent = (video.currentTime / video.duration) * 100;
@@ -3315,122 +3195,194 @@
                         const currentSec = Math.floor(video.currentTime % 60);
                         const durationMin = Math.floor(video.duration / 60);
                         const durationSec = Math.floor(video.duration % 60);
-                        if (timeDisplay) timeDisplay.textContent = `${currentMin}:${currentSec.toString().padStart(2,'0')} / ${durationMin}:${durationSec.toString().padStart(2,'0')}`;
+                        if (timeDisplay) {
+                            timeDisplay.textContent = `${currentMin}:${currentSec.toString().padStart(2,'0')} / ${durationMin}:${durationSec.toString().padStart(2,'0')}`;
+                        }
                     }
                 });
-                if (progressBar) progressBar.addEventListener('click', (e) => { e.stopPropagation(); if (video.duration) { const rect = progressBar.getBoundingClientRect(); const pos = (e.clientX - rect.left) / rect.width; video.currentTime = pos * video.duration; } });
-                video.addEventListener('ended', () => { isPlaying = false; updatePlayPauseButton(); video.currentTime = 0; });
+                
+                if (progressBar) {
+                    progressBar.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (video.duration && !isNaN(video.duration)) {
+                            const rect = progressBar.getBoundingClientRect();
+                            const pos = (e.clientX - rect.left) / rect.width;
+                            video.currentTime = pos * video.duration;
+                        }
+                    });
+                }
+                
+                video.addEventListener('ended', () => {
+                    isPlaying = false;
+                    updatePlayPauseButton();
+                    video.currentTime = 0;
+                });
+                
+                video.addEventListener('loadedmetadata', () => {
+                    checkVideoSource();
+                });
+                
+                checkVideoSource();
             }
         });
     }
     
+    // Инициализация лайков, комментариев и подписок
     function initInteractions() {
         const likeItems = document.querySelectorAll('.like-item');
+        const commentItems = document.querySelectorAll('.comment-item');
         const shareItems = document.querySelectorAll('.share-item');
         const followBtns = document.querySelectorAll('.follow-btn');
+        
         likeItems.forEach(item => {
             let isLiked = false;
             const icon = item.querySelector('.action-icon');
             const countSpan = item.querySelector('.action-count');
             let currentCount = parseInt(countSpan.innerText.replace('K', '000').replace('.', '')) || 0;
+            
             item.addEventListener('click', (e) => {
                 e.stopPropagation();
-                if (isLiked) { currentCount--; isLiked = false; icon.style.opacity = '0.7'; }
-                else { currentCount++; isLiked = true; icon.style.opacity = '1'; icon.classList.add('liked-animation'); setTimeout(() => icon.classList.remove('liked-animation'), 300); }
-                if (currentCount >= 1000) countSpan.innerText = (currentCount / 1000).toFixed(1) + 'K';
-                else countSpan.innerText = currentCount;
+                if (isLiked) {
+                    currentCount--;
+                    isLiked = false;
+                    icon.style.opacity = '0.7';
+                } else {
+                    currentCount++;
+                    isLiked = true;
+                    icon.style.opacity = '1';
+                    icon.classList.add('liked-animation');
+                    setTimeout(() => icon.classList.remove('liked-animation'), 300);
+                }
+                if (currentCount >= 1000) {
+                    countSpan.innerText = (currentCount / 1000).toFixed(1) + 'K';
+                } else {
+                    countSpan.innerText = currentCount;
+                }
             });
         });
-        shareItems.forEach(item => { item.addEventListener('click', (e) => { e.stopPropagation(); alert(`🔁 Поделиться видео`); }); });
+        
+    
+        
+        shareItems.forEach(item => {
+            const container = item.closest('.video-container');
+            const releaseDate = container.querySelector('.release-date')?.innerText || '';
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                alert(`🔁 Поделиться видео\nДата выпуска: ${releaseDate}\n\nСкопируйте ссылку или отправьте друзьям!`);
+            });
+        });
+        
         followBtns.forEach(btn => {
             let isFollowing = false;
-            btn.addEventListener('click', (e) => { e.stopPropagation();
-                if (!isFollowing) { btn.innerText = 'Подписан'; btn.style.backgroundColor = '#ff6b9d'; btn.style.borderColor = '#ff6b9d'; btn.style.color = 'white'; isFollowing = true; }
-                else { btn.innerText = 'Подписаться'; btn.style.backgroundColor = 'transparent'; btn.style.borderColor = '#ff6b9d'; btn.style.color = '#ff6b9d'; isFollowing = false; }
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!isFollowing) {
+                    btn.innerText = 'Подписан';
+                    btn.style.backgroundColor = '#ff6b9d';
+                    btn.style.borderColor = '#ff6b9d';
+                    btn.style.color = 'white';
+                    isFollowing = true;
+                } else {
+                    btn.innerText = 'Подписаться';
+                    btn.style.backgroundColor = 'transparent';
+                    btn.style.borderColor = '#ff6b9d';
+                    btn.style.color = '#ff6b9d';
+                    isFollowing = false;
+                }
             });
         });
     }
     
+    // Автовоспроизведение при скролле
     function initAutoPlay() {
         const videoContainers = document.querySelectorAll('.video-container');
         const observerOptions = { threshold: 0.5 };
+        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const video = entry.target.querySelector('.video-player');
+                const playBtn = entry.target.querySelector('.play-pause-btn');
                 if (!video) return;
+                
                 const hasSource = video.src && video.src !== '' && !video.src.endsWith(window.location.href);
-                if (entry.isIntersecting && hasSource) video.play().catch(e => console.log);
-                else if (!entry.isIntersecting && hasSource) video.pause();
+                
+                if (entry.isIntersecting && hasSource) {
+                    video.play().catch(e => console.log('Автовоспроизведение заблокировано:', e));
+                    if (playBtn) playBtn.innerHTML = '⏸️';
+                } else if (!entry.isIntersecting && hasSource) {
+                    video.pause();
+                    if (playBtn) playBtn.innerHTML = '▶️';
+                }
             });
         }, observerOptions);
+        
         videoContainers.forEach(container => observer.observe(container));
     }
     
+    // Навигация
     function initNavigation() {
         const navItems = document.querySelectorAll('.nav-item');
         const feed = document.getElementById('feed');
+        
         navItems.forEach(item => {
             item.addEventListener('click', () => {
                 const navName = item.getAttribute('data-nav');
                 navItems.forEach(nav => nav.classList.remove('active'));
                 item.classList.add('active');
-                if (navName === 'home') feed.scrollTo({ top: 0, behavior: 'smooth' });
-                else if (navName === 'upload') document.getElementById('uploadModal').classList.add('active');
-                else if (navName !== 'upload') alert(`Раздел в разработке.`);
+                
+                if (navName === 'home') {
+                    feed.scrollTo({ top: 0, behavior: 'smooth' });
+                } else if (navName === 'upload') {
+                    document.getElementById('uploadModal').classList.add('active');
+                } else if (navName !== 'upload') {
+                    alert(`Раздел "${item.querySelector('.nav-label')?.innerText}" в разработке.`);
+                }
             });
         });
     }
     
+    // Модальное окно
     function initModal() {
         const modal = document.getElementById('uploadModal');
         const closeBtn = document.getElementById('closeModalBtn');
         const headerPlus = document.querySelector('.header-icons span:last-child');
-        function closeModal() { modal.classList.remove('active'); }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+        
         if (closeBtn) closeBtn.addEventListener('click', closeModal);
         if (headerPlus) headerPlus.addEventListener('click', () => modal.classList.add('active'));
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     }
     
+    // Примечание при запуске
     function initNotice() {
         const noticeOverlay = document.getElementById('noticeOverlay');
         const closeNoticeBtn = document.getElementById('closeNoticeBtn');
-        function closeNotice() { noticeOverlay.classList.add('fade-out'); setTimeout(() => { noticeOverlay.style.display = 'none'; }, 300); }
+        
+        function closeNotice() {
+            noticeOverlay.classList.add('fade-out');
+            setTimeout(() => {
+                noticeOverlay.style.display = 'none';
+            }, 300);
+        }
+        
         if (closeNoticeBtn) closeNoticeBtn.addEventListener('click', closeNotice);
         if (noticeOverlay) noticeOverlay.addEventListener('click', (e) => { if (e.target === noticeOverlay) closeNotice(); });
     }
     
+    // Поиск
     function initSearch() {
         const searchIcon = document.querySelector('.header-icons span:first-child');
-        if (searchIcon) searchIcon.addEventListener('click', () => alert('🔎 Поиск по TikTak скоро появится!'));
-    }
-
-    function addBottomNav() {
-        const bottomNav = document.createElement('div');
-        bottomNav.className = 'bottom-nav';
-        bottomNav.innerHTML = `
-            <div class="nav-item active" data-nav="home">
-                <div class="nav-icon">🏠</div>
-                <div class="nav-label">Главная</div>
-            </div>
-            <div class="nav-item" data-nav="search">
-                <div class="nav-icon">🔍</div>
-                <div class="nav-label">Поиск</div>
-            </div>
-            <div class="nav-item" data-nav="upload">
-                <div class="nav-icon">➕</div>
-                <div class="nav-label">Добавить</div>
-            </div>
-            <div class="nav-item" data-nav="profile">
-                <div class="nav-icon">👤</div>
-                <div class="nav-label">Профиль</div>
-            </div>
-        `;
-        document.querySelector('.app').appendChild(bottomNav);
+        if (searchIcon) {
+            searchIcon.addEventListener('click', () => {
+                alert('🔎 Поиск по TikTak скоро появится!');
+            });
+        }
     }
     
-    // ========== ЗАПУСК ==========
-    addBottomNav();
-    loadCommentsFromHTML();       // Загружаем комментарии из HTML
+    // Запуск всех инициализаций
     initVideoControls();
     initInteractions();
     initAutoPlay();
@@ -3438,9 +3390,13 @@
     initModal();
     initNotice();
     initSearch();
-    upgradeCommentInteractions(); // Навешиваем обработчики на кнопки комментариев
     
-    console.log('📱 TikTak запущен | Комментарии загружены из HTML');
+    console.log('📱 TikTak запущен | Видео сохраняют пропорции 9:16 без растягивания');
+    console.log('📍 Чтобы добавить видео: найдите теги <video> в коде и добавьте src="путь_к_видео.mp4"');
+
+    function replace() {
+     window.location.replace("index (3).html");
+    }
 </script>
 </body>
 </html>
